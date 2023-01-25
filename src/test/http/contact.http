@@ -1,0 +1,28 @@
+### 견적 문의 SAVE
+POST http://localhost:10234/api/v1/contact/save
+Content-Type: application/json
+
+{
+  "interior_type": "아파트",
+  "name": "박신종",
+  "phone": "010-5231-2315",
+  "email": "dogok@gmail.com",
+  "post_code": "12341",
+  "address": "서울특별시",
+  "address_detail": "강남구 도곡동",
+  "room_cnt": 3,
+  "bathroom_cnt": 2,
+  "space": 35,
+  "space_type": "평",
+  "budget": "3000",
+  "call_time": "10시",
+  "password": "1234",
+  "content": "문의합니다.",
+  "access_route": "블로그"
+}
+
+### 견적 문의 리스트 조회
+GET http://localhost:10234/api/v1/contact/list?keyword=박신종&type=NAME
+
+### 견적 문의 상세 조회
+GET http://localhost:10234/api/v1/contact/detail/6?password=1234

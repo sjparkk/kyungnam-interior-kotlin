@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/defaultlayout">
+
+    <div layout:fragment="content">
+        <section id="common-main">
+            <header class="common-header">
+            </header>
+            <div class="container-fluid">
+                <div class="work-detail-grid" id = "work-detail">
+                    <header class="item header"><span th:text="${workDetail.title}"></span></header>
+                    <nav class="item detail1"><i class="xi-building"></i> 공간 | <span th:text="${workDetail.type}"></span></nav>
+                    <nav class="item detail2"><i class="xi-layout-aside-o"></i> 평수 | <span th:text="${workDetail.category}"></span></nav>
+                    <nav class="item detail3"><i class="xi-location-arrow"></i> 지역 | <span th:text="${workDetail.address}"></span></nav>
+                    <nav class="item detail4"><i class="xi-calendar-check"></i> 기간 | <span th:text="${workDetail.term}"></span></nav>
+                    <nav class="item detail5"><i class="xi-won"></i> 예산 | <span th:text="${workDetail.budget}"></span></nav>
+                    <nav class="item detail6"><i class="xi-receipt"></i> 세부공사 | <span th:text="${workDetail.details}"></span></nav>
+                </div>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <div class="work-detail-img-grid">
+                    <nav class="item description"><span th:text="${workDetail.content}"></span></nav>
+                    <section class="item image" id = "work-detail-img">
+                        <div th:each="workImage : ${workDetail.getWorkImages()}">
+                            <img th:src="@{${workImage.imagePath}}">
+                            <br>
+                            <br>
+                        </div>
+                    </section>
+                    <footer class="item footer"></footer>
+                </div>
+            </div>
+            <footer id="common-footer">
+            </footer>
+        </section>
+    </div>
+    <script src="/js/scrollfollow.js"></script>
+</html>

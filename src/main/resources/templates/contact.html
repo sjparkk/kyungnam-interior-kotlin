@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="layout/defaultlayout">
+
+<div layout:fragment="content">
+	<section id="common-main"  style="width: 80%">
+		<header class="common-header">
+			<h2>견적문의</h2>
+		</header>
+		<form name = "contactForm" action="send" method="post">
+			<span><img src="/img/asterisk.png" style="height: 10px; width: 10px; vertical-align: middle" alt="">필수입력항목</span>
+			<hr>
+			<table class="fTable mt20">
+				<tbody>
+				<tr>
+					<th>고객명 <img src="/img/asterisk.png" alt=""></th>
+					<td colspan="3">
+						<input type="text" name="name" id="name" value="" maxlength="50" class="ib200">
+					</td>
+				</tr>
+				<tr>
+					<th>연락처 <img src="/img/asterisk.png" alt=""></th>
+					<td colspan="3">
+						<input type="text" name="phone" id="phone" value="" maxlength="12" class="ib50" placeholder="번호만 입력해주세요" onkeyup="inputLenNextField(this.value, 4,'phone2')">  <span id="check-phone"></span>
+					</td>
+				</tr>
+				<tr>
+					<th>이메일 <img src="/img/asterisk.png" alt=""></th>
+					<td colspan="3">
+						<input type="text" name="email" id="email" value="" maxlength="100" class="ib300">  <span id="check-email"></span>
+					</td>
+				</tr>
+				<tr>
+					<th>공사현장주소 <img src="/img/asterisk.png" alt=""></th>
+					<td colspan="3">
+						<input type="text" id="postcode" name="postCode" placeholder="우편번호" style="margin-bottom: 5px">
+						<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기" style="margin-bottom: 5px"><br>
+						<input type="text" id="address" name="address" style="width: 500px" placeholder="주소">
+						<input type="text" id="addressDetail" name="addressDetail" style="width: 500px" placeholder="상세주소">
+					</td>
+				</tr>
+				<tr>
+					<th>건물구분 <img src="/img/asterisk.png" alt=""></th>
+					<td colspan="3">
+						<select name="structureType" id="structureType">
+							<option>아파트</option>
+							<option>오피스텔</option>
+							<option>빌라</option>
+							<option>단독주택</option>
+							<option>상가</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>방개수 <img src="" alt=""></th>
+					<td>
+						<select name="roomCnt" id="roomCnt">
+							<option value="1">1개</option>
+							<option value="2">2개</option>
+							<option value="3">3개</option>
+							<option value="4">4개</option>
+							<option value="5">5개</option>
+							<option value="6">6개</option>
+							<option value="7">7개</option>
+							<option value="8">8개</option>
+							<option value="9">9개</option>
+							<option value="10">10개</option>
+						</select>
+					</td>
+					<th>화장실개수 <img src="" alt=""></th>
+					<td>
+						<select name="bathroomCnt" id="bathroomCnt">
+							<option value="1">1개</option>
+							<option value="2">2개</option>
+							<option value="3">3개</option>
+							<option value="4">4개</option>
+							<option value="5">5개</option>
+							<option value="6">6개</option>
+							<option value="7">7개</option>
+							<option value="8">8개</option>
+							<option value="9">9개</option>
+							<option value="10">10개</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th rowspan="1">평형대 <img src="/img/asterisk.png" alt=""></th>
+					<td colspan="3">
+						<span class="count-control">
+							<span>분양면적</span> &nbsp&nbsp <input type="text" name="sizeNum" id="sizeNum" value="" class="ib50" maxlength="5" onkeyup="replaceOnlyNumber(this)">
+						</span>
+						<span class="radio-set right-margin">
+							<input type="radio" name="sizeType" id="area1" value="평" checked><label for="area1">평</label>
+							&nbsp&nbsp
+							<input type="radio" name="sizeType" id="area2" value="㎡"><label for="area2">㎡</label>
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<th>예산<img src="" alt=""></th>
+					<td colspan="3">
+						<select name="budget" id="budget">
+							<option value="1000만원 이하">1000만원 이하</option>
+							<option value="1000~2000만원">1000~2000만원</option>
+							<option value="2000~3000만원">2000~3000만원</option>
+							<option value="3000~4000만원">3000~4000만원</option>
+							<option value="4000~5000만원">4000~5000만원</option>
+							<option value="5000~6000만원">5000~6000만원</option>
+							<option value="6000만원 이상">6000만원 이상</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>통화가능시간</th>
+					<td colspan="3">
+						<select name="callTime" id="callTime">
+							<option>오전10시</option>
+							<option>오전11시</option>
+							<option>오후12시(정오)</option>
+							<option>오후1시</option>
+							<option>오후2시</option>
+							<option>오후3시</option>
+							<option>오후4시</option>
+							<option>오후5시</option>
+							<option>오후6시</option>
+							<option>오후7시</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th>비밀번호 <img src="/img/asterisk.png" alt=""></th>
+					<td colspan="3">
+						<input type="password" name="password" id="password" maxlength="16" class="ib200" style="ime-mode:disabled;">  * 영문, 숫자 조합의 8~16자리 (비밀번호는 암호화되어 저장됩니다) <span id="check-pwd"></span>
+					</td>
+				</tr>
+				<tr>
+					<th>문의사항 <img src="/img/asterisk.png" alt=""></th>
+					<td colspan="3">
+						<textarea name="description" id="description" class="etc-comment" style="width:97%;height:100px;"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<th>접근경로 <img src="" alt=""></th>
+					<td colspan="3">
+						<select name="accessRoute" id="accessRoute">
+							<option value="홈페이지">홈페이지</option>
+							<option value="블로그">블로그</option>
+							<option value="인스타그램">인스타그램</option>
+							<option value="지인소개">지인소개</option>
+							<option value="매장방문">매장방문</option>
+						</select>
+					</td>
+				</tr>
+				</tbody>
+			</table>
+			<footer id="common-footer">
+				<input type="submit" class="contact-btn" value="견적요청" id="contact-btn">
+			</footer>
+		</form>
+	</section>
+
+	<script src="/js/validateContact/contactinfoblurcheck.js"></script>
+	<script src="/js/validateContact/contactinputcheck.js"></script>
+	<script src="/js/validateContact/contactarecheck.js"></script>
+	<script src="/js/daumpost.js"></script>
+	<script src="/js/scrollfollow.js"></script>
+</div>
+</html>

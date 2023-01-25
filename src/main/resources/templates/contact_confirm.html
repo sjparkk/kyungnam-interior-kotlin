@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/defaultlayout">
+
+<div layout:fragment="content">
+    <section id="common-main" style="width:80%">
+        <header class="common-header">
+            <h2>견적문의</h2>
+        </header>
+        <fieldset>
+            <span style="float: right"><img src="/img/asterisk.png" style="height: 10px; width: 10px; vertical-align: middle" alt="">필수입력항목</span>
+            <hr>
+            <table class="fTable mt20">
+                <tbody>
+                <tr>
+                    <th>고객명 <img src="/img/asterisk.png" alt=""></th>
+                    <td colspan="3">
+                        <input type="text" name="name" id="name" th:value="${contact.name}" maxlength="50" class="ib200">
+                    </td>
+                </tr>
+                <tr>
+                    <th>연락처 <img src="/img/asterisk.png" alt=""></th>
+                    <td colspan="3">
+                        <input type="text" name="phone" id="phone" th:value="${contact.phone}" maxlength="4" class="ib50" placeholder="" onkeyup="inputLenNextField(this.value, 4,'phone2')">
+                    </td>
+                </tr>
+                <tr>
+                    <th>이메일 <img src="/img/asterisk.png" alt=""></th>
+                    <td colspan="3">
+                        <input type="text" name="email" th:value="${contact.email}" id="email" value="" maxlength="100" class="ib300">
+                    </td>
+                </tr>
+                <tr>
+                    <th>공사현장주소 <img src="/img/asterisk.png" alt=""></th>
+                    <td colspan="3">
+                        <input type="text" id="postcode" name="postcode" th:value="${contact.postCode}" placeholder="우편번호" style="margin-bottom: 5px">
+                        <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기" style="margin-bottom: 5px"><br>
+                        <input type="text" id="address" name="address" th:value="${contact.address}" style="width: 500px" placeholder="주소">
+                        <input type="text" id="addressDetail" name="addressDetail" th:value="${contact.addressDetail}" style="width: 500px" placeholder="상세주소">
+                    </td>
+                </tr>
+                <tr>
+                    <th>건물구분 <img src="/img/asterisk.png" alt=""></th>
+                    <td colspan="3">
+                        <select name="structureType" id="structureType" th:value="${contact.structureType}">
+                            <option th:selected="${contact.structureType}=='아파트'">아파트</option>
+                            <option th:selected="${contact.structureType}=='오피스텔'">오피스텔</option>
+                            <option th:selected="${contact.structureType}=='빌라'">빌라</option>
+                            <option th:selected="${contact.structureType}=='단독주택'">단독주택</option>
+                            <option th:selected="${contact.structureType}=='상가'">상가</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>방개수 <img src="" alt=""></th>
+                    <td>
+                        <select name="roomCnt" id="roomCnt" th:value="${contact.roomCnt}">
+                            <option th:selected="${contact.roomCnt}=='1'">1개</option>
+                            <option th:selected="${contact.roomCnt}=='2'">2개</option>
+                            <option th:selected="${contact.roomCnt}=='3'">3개</option>
+                            <option th:selected="${contact.roomCnt}=='4'">4개</option>
+                            <option th:selected="${contact.roomCnt}=='5'">5개</option>
+                            <option th:selected="${contact.roomCnt}=='6'">6개</option>
+                            <option th:selected="${contact.roomCnt}=='7'">7개</option>
+                            <option th:selected="${contact.roomCnt}=='8'">8개</option>
+                            <option th:selected="${contact.roomCnt}=='9'">9개</option>
+                            <option th:selected="${contact.roomCnt}=='10'">10개</option>
+                        </select>
+                    </td>
+                    <th>화장실개수 <img src="" alt=""></th>
+                    <td>
+                        <select name="bathroomCnt" id="bathroomCnt" th:value="${contact.bathroomCnt}">
+                            <option th:selected="${contact.bathroomCnt}=='1'">1개</option>
+                            <option th:selected="${contact.bathroomCnt}=='2'">2개</option>
+                            <option th:selected="${contact.bathroomCnt}=='3'">3개</option>
+                            <option th:selected="${contact.bathroomCnt}=='4'">4개</option>
+                            <option th:selected="${contact.bathroomCnt}=='5'">5개</option>
+                            <option th:selected="${contact.bathroomCnt}=='6'">6개</option>
+                            <option th:selected="${contact.bathroomCnt}=='7'">7개</option>
+                            <option th:selected="${contact.bathroomCnt}=='8'">8개</option>
+                            <option th:selected="${contact.bathroomCnt}=='9'">9개</option>
+                            <option th:selected="${contact.bathroomCnt}=='10'">10개</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th rowspan="1">평형대 <img src="/img/asterisk.png" alt=""></th>
+                    <td colspan="3">
+                        <span class="count-control">
+                            <span>분양면적</span> &nbsp&nbsp <input type="text" name="sizeNum" id="sizeNum" th:value="${contact.sizeNum}"class="ib50" maxlength="5" onkeyup="replaceOnlyNumber(this)">
+                        </span>
+                        <span class="radio-set right-margin">
+                            <input th:if="${contact.sizeType == '평'}" type="radio" name="sizeType" id="area1" value="평" checked=""><label th:if="${contact.sizeType == '평'}" for="area1">평</label>
+                            &nbsp&nbsp
+                            <input th:if="${contact.sizeType == '㎡'}" type="radio" name="sizeType" id="area2" value="㎡"  checked=""><label th:if="${contact.sizeType == '㎡'}" for="area2">㎡</label>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>예산<img src="" alt=""></th>
+                    <td colspan="3">
+                        <select name="budget" id="budget" th:value="${contact.budget}">
+                            <option th:selected="${contact.budget}=='1000만원 이하'">1000만원 이하</option>
+                            <option th:selected="${contact.budget}=='1000~2000만원'">1000~2000만원</option>
+                            <option th:selected="${contact.budget}=='2000~3000만원'">2000~3000만원</option>
+                            <option th:selected="${contact.budget}=='3000~4000만원'">3000~4000만원</option>
+                            <option th:selected="${contact.budget}=='4000~5000만원'">4000~5000만원</option>
+                            <option th:selected="${contact.budget}=='5000~6000만원'">5000~6000만원</option>
+                            <option th:selected="${contact.budget}=='6000만원 이상'">6000만원 이상</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th>통화가능시간</th>
+                    <td colspan="3">
+                        <select name="callTime" id="callTime" th:value="${contact.callTime}">
+                            <option th:selected="${contact.callTime}=='오전10시'">오전10시</option>
+                            <option th:selected="${contact.callTime}=='오전11시'">오전11시</option>
+                            <option th:selected="${contact.callTime}=='오후12시(정오)'">오후12시(정오)</option>
+                            <option th:selected="${contact.callTime}=='오후1시'">오후1시</option>
+                            <option th:selected="${contact.callTime}=='오후2시'">오후2시</option>
+                            <option th:selected="${contact.callTime}=='오후3시'">오후3시</option>
+                            <option th:selected="${contact.callTime}=='오후4시'">오후4시</option>
+                            <option th:selected="${contact.callTime}=='오후5시'">오후5시</option>
+                            <option th:selected="${contact.callTime}=='오후6시'">오후6시</option>
+                            <option th:selected="${contact.callTime}=='오후7시'">오후7시</option>
+                        </select>
+                    </td>
+                </tr>
+                <!--<tr>-->
+                <!--    <th>비밀번호 <img src="/img/asterisk.png" alt=""></th>-->
+                <!--    <td colspan="3">-->
+                <!--        <input type="text" name="custPwd" id="custPwd" maxlength="16" class="ib200" style="ime-mode:disabled;">  * 영문 ,숫자 조합의 4~16자리 (비밀번호는 수정/삭제시 필요하며, 암호화되어 저장됩니다)-->
+                <!--    </td>-->
+                <!--</tr>-->
+                <tr>
+                    <th>문의사항 <img src="/img/asterisk.png" alt=""></th>
+                    <td colspan="3">
+                        <textarea name="description" id="description" class="etc-comment" th:value="${contact.description}" th:text="${contact.description}" style="width:97%;height:100px;"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <th>접근경로 <img src="" alt=""></th>
+                    <td colspan="3">
+                        <select name="accessRoute" id="accessRoute" th:value="${contact.accessRoute}">
+                            <option th:selected="${contact.callTime}=='홈페이지'">홈페이지</option>
+                            <option th:selected="${contact.callTime}=='블로그'">블로그</option>
+                            <option th:selected="${contact.callTime}=='인스타그램'">인스타그램</option>
+                            <option th:selected="${contact.callTime}=='지인소개'">지인소개</option>
+                            <option th:selected="${contact.callTime}=='매장방문'">매장방문</option>
+                        </select>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </fieldset>
+        <footer id="common-footer">
+            <!-- 견적 수정 기능은 일단 보류. -->
+            <!--<button class="contact-btn" id="contact-modify-btn">수정<i class="xi-long-arrow-right"></i></button>-->
+            <!--<br>-->
+            <!--<a href="send" class="contact-btn">확인<i class="xi-long-arrow-right"></i></a>-->
+            <a href="/contact/list" class="contact-btn">문의 확인으로 이동<i class="xi-long-arrow-right"></i></a>
+        </footer>
+    </section>
+
+    <script>
+        // 모든 인풋 박스와 select 박스 readonly 및 disabled 속성 추가함.
+        $('input').prop('readonly', true);
+        $('textarea').prop('readonly', true);
+        $('select').attr("disabled","disabled");
+        // 수정 버튼 클릭시 readonly 속성 제거됨
+        // $('#contact-modify-btn').click( e => {
+        //     $('input').prop('readonly', false);
+        //     $('textarea').prop('readonly', false);
+        //     $('select').removeAttr("disabled");
+        // })
+        // 수정 완료 버튼 클릭시 서버로 업데이트 요청 및 다시 readonly 속성 추가
+        // 문의글 제거는 일단 추가 x 함.
+    </script>
+    <script src="/js/daumpost.js"></script>
+    <script src="/js/scrollfollow.js"></script>
+</div>
+</html>

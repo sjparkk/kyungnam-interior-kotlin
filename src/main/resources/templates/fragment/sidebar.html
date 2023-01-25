@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lagn="ko" xmlns:th="http://www.thymeleaf.org">
+
+<!--headerFragment 선언-->
+<div th:fragment="sidebarFragment">
+    <section id="aside" class="sub" style="display: block">
+        <div class="estimate-inquiry floating">
+            <a href="/contact" class="inquiry trans300">
+                <strong class="title">견적문의</strong>
+                <p class="exp">
+                    회원 가입이<br>
+                    따로<br>
+                    필요없는<br>
+                    간편 견적<br>
+                    서비스
+                </p>
+            </a>
+            <a href="/contact/list" class="inquiry check trans300">
+                <strong class="title">견적조회</strong>
+                <p class="exp">
+                    견적문의<br>
+                    내용<br>
+                    조회하기
+                </p>
+            </a>
+            <a href="/" class="inquiry call-center trans300">
+                <i class="xi-call"></i>문의전화
+                <ul>
+                    <li>02-2637-1173</li>
+                </ul>
+            </a>
+        </div>
+    </section>
+</div>
+</html>

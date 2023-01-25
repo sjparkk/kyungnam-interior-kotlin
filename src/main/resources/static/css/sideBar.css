@@ -1,0 +1,241 @@
+#aside {
+	position: fixed;
+	right: 0px;
+	top: 300px;
+	width: 125px;
+	box-sizing: border-box;
+	z-index: 100;
+}
+
+#aside .work-process {
+	width: 150px;
+}
+
+.estimate-inquiry.floating {
+	width: 210px;
+	margin-top: 0;
+}
+
+.estimate-inquiry {
+	position: relative;
+	width: 350px;
+	height: 150px;
+	margin: -90px auto 0;
+	text-align: center;
+	z-index: 100;
+}
+
+.estimate-inquiry.floating .inquiry {
+	width: 125px;
+	height: 150px;
+	padding: 30px 15px;
+}
+
+.estimate-inquiry.floating .inquiry.call-center {
+	width: 125px;
+	height: 85px;
+	padding: 30px 15px;
+}
+
+.estimate-inquiry .inquiry {
+	display: block;
+	width: 185px;
+	height: 185px;
+	padding: 32px;
+	box-sizing: border-box;
+	background: #cf1b1d no-repeat center 85%;
+	background-size: 24px;
+}
+
+.estimate-inquiry a {
+	float: left;
+	color: #666;
+	text-decoration: none;
+	line-height: 1;
+}
+
+#aside .call-center a {
+	color: #666;
+	text-decoration: none;
+	line-height: 1;
+}
+
+.trans300 {
+	-webkit-transition: all 300ms;
+	transition: all 300ms;
+}
+
+.estimate-inquiry a:hover {
+	margin-top: -20px;
+}
+
+.estimate-inquiry {
+	position: relative;
+	width: 370px;
+	height: 185px;
+	margin: -90px auto 0;
+	text-align: center;
+	z-index: 100;
+}
+
+.estimate-inquiry.floating .inquiry .title {
+	font-size: 23px;
+	font-weight: 500;
+}
+
+.estimate-inquiry .inquiry .title {
+	display: block;
+	font-size: 26px;
+	font-weight: normal;
+	color: #fff;
+}
+
+.estimate-inquiry .inquiry .exp {
+	margin-top: 20px;
+	font-size: 14px;
+	color: rgba(255,255,255,.5);
+}
+
+.estimate-inquiry .inquiry.check {
+	background: #333 no-repeat center 85%;
+	background-size: 24px;
+}
+
+.estimate-inquiry .inquiry.call-center {
+	background: #FFFFFF no-repeat center 85%;
+	background-size: 24px;
+	border: #1b1e21;
+}
+
+#aside .call-center {
+	/* margin-top: 460px; */
+	/*margin-top: 150px;*/
+	padding: 25px 0;
+	text-align: center;
+	border: 1px solid #666;
+	background: #fff;
+}
+
+
+@media screen and (max-device-width: 976px){
+	#aside {
+		position: fixed;
+		right: 0px;
+		top: 300px;
+		width: 100px;
+		box-sizing: border-box;
+		z-index: 100;
+	}
+
+	#aside .work-process {
+		width: 150px;
+	}
+
+	.estimate-inquiry.floating {
+		width: 100px;
+		margin-top: 0;
+	}
+
+	.estimate-inquiry {
+		position: relative;
+		width: 350px;
+		height: 150px;
+		margin: -90px auto 0;
+		text-align: center;
+		z-index: 100;
+	}
+
+	.estimate-inquiry.floating .inquiry {
+		width: 100px;
+		height: 150px;
+		padding: 30px 15px;
+	}
+
+	.estimate-inquiry.floating .inquiry.call-center {
+		width: 100px;
+		height: 85px;
+		padding: 30px 15px;
+	}
+
+	.estimate-inquiry .inquiry {
+		display: block;
+		width: 185px;
+		height: 185px;
+		padding: 32px;
+		box-sizing: border-box;
+		background: #cf1b1d no-repeat center 85%;
+		background-size: 24px;
+	}
+
+	.estimate-inquiry a {
+		float: left;
+		color: #666;
+		text-decoration: none;
+		line-height: 1;
+	}
+
+	#aside .call-center a {
+		color: #666;
+		text-decoration: none;
+		line-height: 1;
+	}
+
+	.trans300 {
+		-webkit-transition: all 300ms;
+		transition: all 300ms;
+	}
+
+
+	.estimate-inquiry a:hover {
+		margin-top: -20px;
+	}
+
+	.estimate-inquiry {
+		position: relative;
+		width: 370px;
+		height: 185px;
+		margin: -90px auto 0;
+		text-align: center;
+		z-index: 100;
+	}
+
+	.estimate-inquiry.floating .inquiry .title {
+		font-size: 17px;
+		font-weight: 500;
+	}
+
+	.estimate-inquiry .inquiry .title {
+		display: block;
+		font-size: 26px;
+		font-weight: normal;
+		color: #fff;
+	}
+
+	.estimate-inquiry .inquiry .exp {
+		margin-top: 20px;
+		font-size: 13px;
+		color: rgba(255,255,255,.5);
+	}
+
+
+	.estimate-inquiry .inquiry.check {
+		background: #333 no-repeat center 85%;
+		background-size: 24px;
+	}
+
+	.estimate-inquiry .inquiry.call-center {
+		background: #FFFFFF no-repeat center 85%;
+		background-size: 24px;
+		border: #1b1e21;
+	}
+
+	#aside .call-center {
+		/* margin-top: 460px; */
+		/*margin-top: 150px;*/
+		padding: 25px 0;
+		text-align: center;
+		border: 1px solid #666;
+		background: #fff;
+	}
+}
+

@@ -1,0 +1,99 @@
+.container-fluid {
+    width: 100%;
+    height: 80%;
+    margin-top: 7%;
+    align-items: stretch;
+}
+
+.work-detail-grid{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas:
+            "header header header"
+            "detail1 detail2 detail3"
+            "detail4 detail5 detail6";
+    gap: 35px 10px;
+    margin: 0 auto;
+    align-items: center; /* 수직 가운데 정렬 */
+    justify-content: center; /* 수평 가운데 정렬 */
+    align-self: center;
+}
+
+.work-detail-img-grid{
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas:
+            ". description ."
+            ". image ."
+            ". footer .";
+    gap: 45px 10px;
+    margin: 0 auto;
+    align-items: center; /* 수직 가운데 정렬 */
+    justify-content: center; /* 수평 가운데 정렬 */
+    align-self: center;
+}
+
+.work-detail-grid .item{
+    background-color: #FFFFFF;
+}
+.work-detail-grid .header{
+    grid-area: header;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 700;
+}
+.work-detail-grid .detail1{
+    grid-area: detail1;
+    font-size: 20px;
+    text-align: center;
+    align-self: center;
+}
+.work-detail-grid .detail2{
+    grid-area: detail2;
+    font-size: 20px;
+    text-align: center;
+    align-self: center;
+}
+.work-detail-grid .detail3{
+    grid-area: detail3;
+    font-size: 20px;
+    text-align: center;
+    align-self: center;
+}
+.work-detail-grid .detail4{
+    grid-area: detail4;
+    font-size: 20px;
+    text-align: center;
+    align-self: center;
+}
+.work-detail-grid .detail5{
+    grid-area: detail5;
+    font-size: 20px;
+    text-align: center;
+    align-self: center;
+}
+.work-detail-grid .detail6{
+    grid-area: detail6;
+    font-size: 20px;
+    text-align: center;
+    align-self: center;
+}
+.work-detail-img-grid .description{
+    grid-area: description;
+    font-size: 20px;
+    text-align: center;
+    align-self: center;
+}
+.work-detail-img-grid .image{
+    grid-area: image;
+    place-items: center;
+}
+
+.work-detail-img-grid .footer{
+    grid-area: footer;
+    text-align: center;
+}

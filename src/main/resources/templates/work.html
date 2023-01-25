@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layout/defaultlayout">
+
+<div layout:fragment="content">
+    <section id="common-main">
+        <header class="common-header">
+            <h2>포트폴리오</h2>
+            <!-- 정렬 기능 포트폴리오 쌓일때 까지 잠시 중지 -->
+<!--            <div id = "order-wrapper">-->
+<!--                <select id="select-order-wrapper" name="work-order" style="font-size: 15px;" th:value="${category}">-->
+<!--                    <option th:selected="${category}=='0'">전체</option>-->
+<!--                    <option th:selected="${category}=='20'">20평</option>-->
+<!--                    <option th:selected="${category}=='30'">30평</option>-->
+<!--                    <option th:selected="${category}=='40'">40평</option>-->
+<!--                </select>-->
+<!--            </div>-->
+        </header>
+        <div class="child-page-listing">
+            <div class="grid-container" id="work-wrapper">
+                    <article class="location-listing" th:each="work : ${workAllList}">
+                        <a class="location-title" th:href="@{/work/detail(id=${work.id})}">
+                            <h5 th:text="${work.title}"></h5>
+                        </a>
+                        <div class="location-image">
+                            <a th:href="@{/work/detail(id=${work.id})}">
+                                <img width="300" height="169" th:src="@{${work.thumnailImagePath}}">
+                            </a>
+                        </div>
+                        <input type = "hidden" th:value="${work.id + ' ' + work.isMain}" >
+                    </article>
+            </div>
+        </div>
+        <footer id="common-footer">
+        </footer>
+    </section>
+    <script src="/js/scrollfollow.js"></script>
+    <script>
+        // $(document).on("change", "#select-order-wrapper", function(e){
+        //     console.log(e.target.value.split('평')[0]);
+        //     let workAttr = "";
+        //     let url = "";
+        //     let selectedOrder;
+        //     if(e.target.value === '전체') {
+        //         selectedOrder = 0;
+        //     } else {
+        //         selectedOrder = e.target.value.split('평')[0];
+        //     }
+        //
+        //     url = "/work/"+selectedOrder;
+        //
+        //     console.log(url);
+        //     fetch(url, {
+        //         method: 'POST',
+        //         headers: {
+        //             "Content-Type": "application/json",
+        //         }
+        //     }).then((response) => response.json())
+        //         .then((result)=>{
+        //             $("#work-wrapper").empty();
+        //             console.log(result);
+        //
+        //             for(let i in result){ // 기존 className만 있을때는 동적 추가 후 css 속성 인식 안됨. 그래서 class="location-listing" 이거 추가해줌..
+        //                 workAttr += `
+        //                     <article className="location-listing" class="location-listing">
+        //                         <a className="location-title" href="#" class="location-title">
+        //                             <h5>${result[i].title}</h5>
+        //                         </a>
+        //                         <div className="location-image" class="location-image">
+        //                             <a href="#">
+        //                                 <img width="300" height="169" src="/img/ex_img3.png">
+        //                             </a>
+        //                         </div>
+        //                         <input type="hidden" value="${result[i].id}">
+        //                     </article>`;
+        //             }
+        //             $("#work-wrapper").append(workAttr);
+        //         }).catch((error)=> console.log(error));
+        // })
+    </script>
+</div>
+</html>

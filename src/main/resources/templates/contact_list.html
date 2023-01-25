@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorator="layout/defaultlayout">
+
+<div layout:fragment="contentListCss">
+	<th:block th:replace="fragment/contact_list_css :: contactListCss"></th:block>
+</div>
+
+<div layout:fragment="content">
+	<section id="contact-list-main">
+		<header class="common-header">
+			<h2>견적 조회</h2>
+		</header>
+		<div>
+			<form name="searchForm" action="/getSearchList" autocomplete="off" style="float: right; margin: 5px">
+				<select name="type" id="type">
+					<option value="검색 내용 선택">검색 내용 선택</option>
+					<option value="">전체검색</option>
+					<option value="name">이름</option>
+					<option value="address">주소</option>
+				</select>
+				<input type="text" name="keyword" id="keyword" value="">
+				<input type="button" id="search-btn" class="search-button" value="검색" style="font-size: 16px; padding: 3px 10px; border-radius: 10px">
+			</form>
+		</div>
+		<table class="table" id="contact_list">
+			<thead>
+				<tr>
+					<th>번호</th>
+					<th>고객명</th>
+					<th>주소</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="contact: ${contactList}" data-toggle="modal" data-target="#exampleModalCenter">
+					<td th:text="${contact.id}"></td>
+					<td th:text="${contact.name}"></td>
+					<td th:text="${contact.address}"></td>
+				</tr>
+			</tbody>
+		</table>
+		<nav style="text-align: center;">
+			<ul class="pagination"
+				th:with="start=${T(Math).floor(contactList.number/10)*10 + 1},
+                    last=(${start + 9 < contactList.totalPages ? start + 9 : contactList.totalPages})" style="display: inline-block">
+				<li>
+					<a th:href="@{/contact/list(page=1)}" aria-label="First">
+						<span aria-hidden="true">First</span>
+					</a>
+				</li>
+				<li th:class="${contactList.first} ? 'disabled'">
+					<a th:href="${contactList.first} ? '#' :@{/contact(page=${contactList.number})}" aria-label="Previous">
+						<span aria-hidden="true">&lt;</span>
+					</a>
+				</li>
+				<li th:each="page: ${#numbers.sequence(start, last)}" th:class="${page == contactList.number + 1} ? 'active'">
+					<a th:text="${page}" th:href="@{/contact/list(page=${page})}"></a>
+				</li>
+				<li th:class="${contactList.last} ? 'disabled'">
+					<a th:href="${contactList.last} ? '#' : @{/contact/list(page=${contactList.number + 2})}" aria-label="Next">
+						<span aria-hidden="true">&gt;</span>
+					</a>
+				</li>
+				<li>
+					<a th:href="@{/contact/list(page=${contactList.totalPages})}" aria-label="Last">
+						<span aria-hidden="true">Last</span>
+					</a>
+				</li>
+			</ul>
+		</nav>
+	</section>
+
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header" style="background-color: #fff3cd">
+					<h1 class="modal-title" id="exampleModalLongTitle" style="font-size: 17px; font-weight: 600">비밀번호</h1>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form id="pwdForm" name="pwdForm" method="post" action="/contact/list/form">
+					<input type="hidden" name="user-id" value="">
+					<div class="modal-body">
+						본 게시물은 비밀글입니다.
+						비밀번호를 입력하시면 글을 조회할 수 있습니다.
+					</div>
+					<input type="password" name="password" id="password" style="margin: 1rem;" placeholder="비밀번호" class="pw-box">
+					<div class="modal-footer">
+						<span id="check-msg"></span><input type="submit" id="check-pwd" value="확인" style="background-color: #636e72">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<script src="/js/validateContact/contactlistcheck.js"></script>
+	<script src="/js/scrollfollow.js"></script>
+</div>
+</html>

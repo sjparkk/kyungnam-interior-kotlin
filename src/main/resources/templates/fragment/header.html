@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lagn="ko" xmlns:th="http://www.thymeleaf.org">
+
+<!--headerFragment 선언-->
+<div th:fragment="headerFragment">
+    <section id="page-wrapper">
+        <header id="header">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <!-- 메뉴의 홈페이지 이름 -->
+                <a href="/"><img src="/img/logo.png" style="height: 30px"></a>
+                <!-- 모바일때 표시되는 메뉴 버튼(PC 버젼에서는 보이지 않는다.) -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <!-- 메인 메뉴 아이템 -->
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item"> <!-- 포트폴리오 쌓일때까지는 전체 메뉴만.. -->
+                            <a class="nav-link" href="/work?category=0" style="font-weight: 600; color: #1c2021; font-size: 20px">포트폴리오</a>
+                        </li>
+                        <!-- 평수 Link 메뉴 -->
+        <!--                    <li class="nav-item">-->
+        <!--                        <a class="nav-link" href="/work?category=20" style="font-weight: 400; color: #1c2021; font-size: 20px">20평</a>-->
+        <!--                    </li>-->
+        <!--                    <li class="nav-item">-->
+        <!--                        <a class="nav-link" href="/work?category=30"  style="font-weight: 400; color: #1c2021; font-size: 20px">30평</a>-->
+        <!--                    </li>-->
+        <!--                    <li class="nav-item">-->
+        <!--                        <a class="nav-link" href="/work?category=40"  style="font-weight: 400; color: #1c2021; font-size: 20px">40평</a>-->
+        <!--                    </li>-->
+                        <!-- Dropdown 메뉴 -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  style="font-weight: 600; color: #1c2021; font-size: 20px">
+                                온라인문의
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/contact"  style="font-weight: 500; color: #1c2021; font-size: 20px">문의하기</a>
+                                <a class="dropdown-item" href="/contact/list"  style="font-weight: 500; color: #1c2021; font-size: 20px">문의확인</a>
+                            </div>
+                        </li>
+                    </ul>
+                    <div style="float: right; width: 30%;">
+                        <div class="icons" style="margin-top: 20px; margin-bottom: 20px; float: right;">
+                            <a href="https://m.blog.naver.com/kninfo0501/222399222840" target="_blank" style="text-decoration: none"> <!--새탭에서 열기 target="_blank"-->
+                                <i class="xi-naver-square xi-2x" style="color: black;"></i> <!--크기조절  xi-2x-->
+                            </a>
+                        </div>
+                        <div class="icons" style="margin-top: 20px; margin-bottom: 20px; margin-right: 30px; float: right;">
+                            <a href="https://www.instagram.com/kn_interior_j/" target="_blank" style="text-decoration: none">
+                                <i class="xi-instagram xi-2x" style="color: black;"></i> <!-- xi-border 추가시 테두리-->
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+    </section>
+</div>
+</html>

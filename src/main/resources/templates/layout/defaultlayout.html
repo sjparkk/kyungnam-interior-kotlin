@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<html lagn="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8" />
+    <title>경남인테리어</title>
+    <meta charset="utf-8" />
+    <script src="/js/jquery.min.js"></script>
+    <!--swiper cdn-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!--폰트-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <!--favicon-->
+    <link rel="icon" type="image/png" sizes="32x32" href="/img/favicon.png"/>
+    <!-- XEICON (아이콘) -->
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/xeicon/2/xeicon.min.css">
+    <!--Auto-Gradation Change Background-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <script src="/js/autogradation.js"></script>
+    <!--sideBar-->
+    <link rel="stylesheet" href="/css/sideBar.css"/>
+    <!--googleMap-->
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyDElYziQ9ydaGpRGogE74xBWC_hEj6tCnI" ></script>
+    <!--메인페이지 css-->
+    <link rel="stylesheet" href="/css/mainTest.css"/>
+    <!--daum address api-->
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+    <!--work-detail-grid-->
+    <link rel="stylesheet" href="/css/work-detail-grid.css"/>
+    <!-- font 통일 -->
+    <link rel="stylesheet" href="/css/font.css"/>
+    <th:block layout:fragment="contentListCss"></th:block>
+</head>
+
+<body>
+    <!-- header fragment 사용 -->
+    <th:block th:replace="fragment/header :: headerFragment"></th:block>
+    <!-- header fragment 사용 -->
+    <th:block th:replace="fragment/sidebar :: sidebarFragment"></th:block>
+    <!-- content fragment 사용 // 현재 layout을 사용하는 content fragment의 내용을 삽입한다.-->
+    <th:block layout:fragment="content"></th:block>
+    <!-- footer fragment 사용 -->
+    <th:block th:replace="fragment/footer :: footerFragment"> </th:block>
+    <script>
+        $( window ).resize(function() {
+            var windowWidth = $( window ).width();
+            if(windowWidth < 976) {
+                $("#aside").css("display" , "none");
+            } else {
+                $("#aside").css("display" , "block");
+            }
+        });
+    </script>
+</body>
+</html>

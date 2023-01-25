@@ -1,0 +1,8 @@
+### 메인 화면 정보 조회
+GET http://localhost:10234/api/v1/interior/init?device_type=PC
+
+### 인테리어 작업물 리스트 조회
+GET http://localhost:10234/api/v1/interior/list?space=35&interior_type=아파트
+
+### 인테리어 상세 조회
+GET http://localhost:10234/api/v1/interior/detail?interior_code=IN620618361BC

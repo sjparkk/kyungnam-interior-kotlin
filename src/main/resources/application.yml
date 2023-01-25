@@ -1,0 +1,63 @@
+## 서비스 설정
+server:
+  port: ${HOST_PORT:10234}
+  # kill -15 : 정상 종료
+  # kill -9 : 강제 종료
+  shutdown: graceful
+
+spring:
+  profiles:
+    active: local
+  datasource:
+    url: jdbc:mysql://localhost:3306/interior?characterEncoding=UTF-8&serverTimezone=Asia/Seoul
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: local
+  jpa:
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: com.vladmihalcea.hibernate.type.util.CamelCaseToSnakeCaseNamingStrategy
+    properties:
+      hibernate:
+        default_batch_fetch_size: 100
+        order_inserts: true
+        order_updates: true
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+
+
+# OpenAPI Swagger setting
+springdoc:
+  api-docs:
+    groups:
+      enabled: true
+    enabled: true
+    path: /v3/api-docs
+  swagger-ui:
+    # Swagger-UI 활성화
+    enabled: true
+    # swagger-ui custom path
+    #    path: /swagger-ui.html
+    disable-swagger-default-url: true
+    display-request-duration: true
+    groups-order: DESC
+    operationsSorter: method
+    tagsSorter: alpha
+    display-query-params-without-oauth2: true
+  group-configs:
+    - group: company
+      paths-to-match: /api/v1/**
+
+feign:
+  target-api:
+    kakao-nlp: ${API_URL}
+
+tag:
+  # custom / kakao
+  type: custom
