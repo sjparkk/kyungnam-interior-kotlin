@@ -12,3 +12,6 @@
 - **JAVA 11**
 - **Gradle 7.5.1**
 - **Build: Kotlin Gradle(kts)**
+
+## Initial Screen
+![메인페이지 화면 (1)](https://user-images.githubusercontent.com/66293784/214582057-4e2b67ee-93ac-443c-b915-22c668e43147.png)
