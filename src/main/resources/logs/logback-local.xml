@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true">
+    <include resource="logs/default-log-constant.xml"/>
+    <include resource="logs/default-log-setting.xml"/>
+
+    <logger name="kr.co.interiorkotlin" level="DEBUG"/>
+    <logger name="org.hibernate.validator" level="INFO"/>
+
+    <!-- hibernate SQL 보기 -->
+    <logger name="org.hibernate.SQL" level="debug" additivity="false"/>
+    <logger name="org.hibernate.type" level="trace" additivity="false"/>
+
+    <!-- additivity="false" 사용시 아래의 logger가 상속 받지 않는다 default 는 true -->
+    <logger name="com.zaxxer.hikari" level="INFO"/>
+
+
+    <root level="INFO">
+        <appender-ref ref="STANDARD_OUTPUT"/>
+        <appender-ref ref="DEFAULT_LOG_APPENDER"/>
+        <appender-ref ref="DEFAULT_ERROR_LOG_APPENDER"/>
+    </root>
+</configuration>
