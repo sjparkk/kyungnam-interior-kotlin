@@ -31,29 +31,6 @@ spring:
     database: mysql
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
 
-
-# OpenAPI Swagger setting
-springdoc:
-  api-docs:
-    groups:
-      enabled: true
-    enabled: true
-    path: /v3/api-docs
-  swagger-ui:
-    # Swagger-UI 활성화
-    enabled: true
-    # swagger-ui custom path
-    #    path: /swagger-ui.html
-    disable-swagger-default-url: true
-    display-request-duration: true
-    groups-order: DESC
-    operationsSorter: method
-    tagsSorter: alpha
-    display-query-params-without-oauth2: true
-  group-configs:
-    - group: company
-      paths-to-match: /api/v1/**
-
 feign:
   target-api:
     kakao-nlp: ${API_URL}
