@@ -74,6 +74,10 @@ class Contact() : BaseIncludeDeleteEntity() {
         this.salt = salt
     }
 
+    override fun toString(): String {
+        return "Contact(id=$id, interiorType=$interiorType, name=$name, phone=$phone, email=$email, postCode=$postCode, address=$address, addressDetail=$addressDetail, roomCnt=$roomCnt, bathroomCnt=$bathroomCnt, space=$space, spaceType=$spaceType, budget=$budget, callTime=$callTime, password=$password, content=$content, accessRoute=$accessRoute, salt=$salt)"
+    }
+
 }
 
 

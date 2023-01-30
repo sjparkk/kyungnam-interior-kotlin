@@ -12,6 +12,7 @@ import kr.co.interiorkotlin.contact.domain.dto.req.ReqContactSearchDTO
 import kr.co.interiorkotlin.contact.domain.dto.res.ResContactDetailDTO
 import kr.co.interiorkotlin.contact.domain.enums.SearchTypeEnum
 import kr.co.interiorkotlin.contact.domain.event.ContactSlackEvent
+import kr.co.interiorkotlin.contact.domain.event.ScheduledContactPushSlackEvent
 import kr.co.interiorkotlin.contact.repository.ContactRepository
 import org.slf4j.LoggerFactory
 import org.springframework.beans.BeanUtils
@@ -22,11 +23,14 @@ import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.HttpEntity
 import org.springframework.http.HttpMethod
 import org.springframework.scheduling.annotation.Async
+import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.client.RestTemplate
 import java.lang.String.format
 import java.security.MessageDigest
+import java.time.LocalDate
+import java.time.LocalDateTime
 
 @Service
 class ContactService(
@@ -191,6 +195,56 @@ class ContactService(
         }
         return sb.toString()
 
+    }
+
+
+    /**
+     * Cron contact push scheduler
+     * 지정 된 시간에 견적 문의 알람을 푸시하는 스케줄러 (금일 신규 문의에 대해서만)
+     * 업무 시작 전 알림 - 10시
+     * 중간 알림 - 15시
+     * 업무 종료 전 알림 - 19시
+     */
+//    @Scheduled(cron = "0 0 10,15,19 * * *")
+    @Scheduled(cron = "0/60 * * * * *")
+    fun cronContactPushScheduler() {
+
+        val nowDate = LocalDate.now()
+        val start = nowDate.atTime(0, 0, 0)
+        val end = LocalDateTime.now()
+
+        val result = contactRepository.findContactsByCreatedAtBetween(start, end)
+
+        if(result.isNotEmpty())
+            eventPublisher.publishEvent(ScheduledContactPushSlackEvent(result.size, end.hour))
+
+    }
+
+    @Async
+    @EventListener
+    fun sendSlackScheduledPushContact(event: ScheduledContactPushSlackEvent) {
+
+        val count = event.count
+        val hour = event.hour
+
+        val restTemplate = RestTemplate()
+        val request: MutableMap<String, Any> = HashMap()
+        request["username"] = "견적 문의 금일 신규 문의 알림"
+        val text = format(
+            """
+                금일 %d시 기준 %d 건의 견적 문의가 들어왔습니다.
+                문의를 확인 해주세요. 
+                """.trimIndent(),
+            hour, count
+        )
+        request["text"] = text
+
+        val entity = HttpEntity<Map<String, Any>>(request)
+        val url =
+            "https://hooks.slack.com/services/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" // 사용할 슬랙의 Webhook URL 넣기
+
+        // 경남인테리어 URL : https://hooks.slack.com/services/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
+        restTemplate.exchange(url, HttpMethod.POST, entity, String::class.java)
     }
 
 }
