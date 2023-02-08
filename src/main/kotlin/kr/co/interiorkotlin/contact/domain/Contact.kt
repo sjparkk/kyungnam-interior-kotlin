@@ -66,16 +66,8 @@ class Contact() : BaseIncludeDeleteEntity() {
     @field:Schema(title = "접근 경로")
     var accessRoute: String? = null
 
-    @field:Schema(title = "솔트값", description = "암호 확인 시 필요")
-    var salt: String? = null
-
-    fun hashing(hashedPassword: String, salt: String) {
-        this.password = hashedPassword
-        this.salt = salt
-    }
-
     override fun toString(): String {
-        return "Contact(id=$id, interiorType=$interiorType, name=$name, phone=$phone, email=$email, postCode=$postCode, address=$address, addressDetail=$addressDetail, roomCnt=$roomCnt, bathroomCnt=$bathroomCnt, space=$space, spaceType=$spaceType, budget=$budget, callTime=$callTime, password=$password, content=$content, accessRoute=$accessRoute, salt=$salt)"
+        return "Contact(id=$id, interiorType=$interiorType, name=$name, phone=$phone, email=$email, postCode=$postCode, address=$address, addressDetail=$addressDetail, roomCnt=$roomCnt, bathroomCnt=$bathroomCnt, space=$space, spaceType=$spaceType, budget=$budget, callTime=$callTime, password=$password, content=$content, accessRoute=$accessRoute)"
     }
 
 }

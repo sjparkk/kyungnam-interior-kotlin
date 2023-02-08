@@ -3,8 +3,8 @@ package kr.co.interiorkotlin.contact.service
 import kr.co.interiorkotlin.common.delegation.MaskingName
 import kr.co.interiorkotlin.common.exception.DataNotFoundException
 import kr.co.interiorkotlin.common.exception.ErrorInValidParamException
-import kr.co.interiorkotlin.common.generator.PasswordGenerator
 import kr.co.interiorkotlin.common.page.domain.ResPageDTO
+import kr.co.interiorkotlin.common.utils.CryptoUtils
 import kr.co.interiorkotlin.contact.domain.Contact
 import kr.co.interiorkotlin.contact.domain.dto.ContactDTO
 import kr.co.interiorkotlin.contact.domain.dto.req.ReqContactSaveDTO
@@ -28,7 +28,6 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.client.RestTemplate
 import java.lang.String.format
-import java.security.MessageDigest
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -36,6 +35,7 @@ import java.time.LocalDateTime
 class ContactService(
     private val contactRepository: ContactRepository,
     private val eventPublisher: ApplicationEventPublisher,
+    private val cryptoUtils: CryptoUtils
 ) {
 
     private val log = LoggerFactory.getLogger(javaClass)
@@ -47,13 +47,13 @@ class ContactService(
     @Transactional
     fun saveContact(req: ReqContactSaveDTO) {
 
-        val (hashPassword, salt) = PasswordGenerator.hashing(req.password)
-        log.debug(":: 암호화 된 password - $hashPassword, 기존 암호 - ${req.password}")
+        val encryptedPassword = cryptoUtils.encryptAES(req.password)
+        log.debug(":: 암호화 된 password - $encryptedPassword, 기존 암호 - ${req.password}")
 
         val contact = Contact()
         BeanUtils.copyProperties(req, contact)
         val saveContact = contactRepository.save(contact)
-        saveContact.hashing(hashPassword, salt)
+        saveContact.password = encryptedPassword
 
         //TODO : 추후 관리자 여러명인 경우 알람 추가 필요
         //신규 견적 문의 슬렉 알람
@@ -153,8 +153,8 @@ class ContactService(
             ?: throw DataNotFoundException("존재하지 않는 견적 문의입니다.")
 
         //비밀번호 확인
-        val hashedPassword = hashingPassword(password, contact.salt!!)
-        if(hashedPassword != contact.password) throw ErrorInValidParamException("비밀번호가 같지 않습니다")
+        val plainPassword = contact.password?.let { cryptoUtils.decryptAES(it) }
+        if(plainPassword != null && plainPassword != password) throw ErrorInValidParamException("비밀번호가 같지 않습니다")
 
         return ResContactDetailDTO(
             interiorType = contact.interiorType,
@@ -174,29 +174,6 @@ class ContactService(
             accessRoute = contact.accessRoute
         )
     }
-
-    private fun hashingPassword(password: String, salt: String): String {
-        // SHA-256 해시함수를 사용
-        val md = MessageDigest.getInstance("SHA-256")
-
-        // 패스워드와 Salt 를 합쳐 새로운 문자열 생성
-        val temp = password + salt
-
-        // temp 의 문자열을 해싱하여 md 에 저장해둔다
-        md.update(temp.toByteArray())
-
-        // md 객체의 다이제스트를 얻어 password 를 갱신한다
-        val transPwd = md.digest()
-
-        // 바이트 값을 16진수로 변경
-        val sb = StringBuilder()
-        for (a in transPwd) {
-            sb.append(String.format("%02x", a))
-        }
-        return sb.toString()
-
-    }
-
 
     /**
      * Cron contact push scheduler
