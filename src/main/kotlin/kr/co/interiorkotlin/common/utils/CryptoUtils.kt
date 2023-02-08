@@ -7,6 +7,10 @@ import javax.crypto.Cipher
 import javax.crypto.spec.GCMParameterSpec
 import javax.crypto.spec.SecretKeySpec
 
+/**
+ * Crypto utils
+ * https://www.javainterviewpoint.com/java-aes-256-gcm-encryption-and-decryption/
+ */
 @Component
 class CryptoUtils {
 
