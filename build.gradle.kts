@@ -98,11 +98,6 @@ dependencies{
     //mongodb
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
 
-    // https://kaiso.github.io/relmongo/
-    // MongoDB 릴레이션 맵핑 라이브러리
-    val relmongoVersion = "3.4.2"
-    implementation("io.github.kaiso.relmongo:relmongo:${relmongoVersion}")
-
     // https://mvnrepository.com/artifact/com.google.guava/guava
     implementation("com.google.guava:guava:31.1-jre")
 
