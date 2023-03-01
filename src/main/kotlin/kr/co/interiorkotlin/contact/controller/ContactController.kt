@@ -11,8 +11,10 @@ import kr.co.interiorkotlin.contact.domain.dto.res.ResContactDetailDTO
 import kr.co.interiorkotlin.contact.domain.dto.res.ResContactSearchDTO
 import kr.co.interiorkotlin.contact.service.ContactService
 import org.slf4j.LoggerFactory
+import org.springframework.http.MediaType
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.multipart.MultipartFile
 import javax.validation.Valid
 import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.NotNull
@@ -30,11 +32,12 @@ class ContactController(
     @Operation(summary = "견적 문의 생성", description = """
         - 견적 문의 생성 후 관리자 슬랙 알람
     """)
-    @PostMapping("/save")
+    @PostMapping(consumes = [MediaType.MULTIPART_FORM_DATA_VALUE])
     fun saveContact(
-        @Valid @RequestBody reqContactSaveDTO: ReqContactSaveDTO
+        @Valid @RequestPart(name = "reqContactSaveDTO") reqContactSaveDTO: ReqContactSaveDTO,
+        @RequestPart(name = "file", required = false) file: MultipartFile?
     ): CommonResponse<Unit> {
-        val response = contactService.saveContact(reqContactSaveDTO)
+        val response = contactService.saveContact(reqContactSaveDTO, file)
         log.debug("::견적 문의 생성 응답 - $response")
         return CommonResponse(response)
     }
