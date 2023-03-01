@@ -66,6 +66,10 @@ class Contact() : BaseIncludeDeleteEntity() {
     @field:Schema(title = "접근 경로")
     var accessRoute: String? = null
 
+    @field:Lob
+    @field:Schema(title = "이미지", description = "이미지 데이터 BLOB 저장")
+    var image: ByteArray? = null
+
     override fun toString(): String {
         return "Contact(id=$id, interiorType=$interiorType, name=$name, phone=$phone, email=$email, postCode=$postCode, address=$address, addressDetail=$addressDetail, roomCnt=$roomCnt, bathroomCnt=$bathroomCnt, space=$space, spaceType=$spaceType, budget=$budget, callTime=$callTime, password=$password, content=$content, accessRoute=$accessRoute)"
     }
