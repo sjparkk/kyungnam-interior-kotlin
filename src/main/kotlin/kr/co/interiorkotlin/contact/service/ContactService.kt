@@ -27,6 +27,7 @@ import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.client.RestTemplate
+import org.springframework.web.multipart.MultipartFile
 import java.lang.String.format
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -43,15 +44,25 @@ class ContactService(
     /**
      * 견적 문의 생성 및 슬랙 알람
      * @param req ReqContactSaveDTO
+     * @param file MultipartFile
      */
     @Transactional
-    fun saveContact(req: ReqContactSaveDTO) {
+    fun saveContact(
+        req: ReqContactSaveDTO,
+        file: MultipartFile?
+    ) {
 
         val encryptedPassword = cryptoUtils.encryptAES(req.password)
         log.debug(":: 암호화 된 password - $encryptedPassword, 기존 암호 - ${req.password}")
 
         val contact = Contact()
         BeanUtils.copyProperties(req, contact)
+
+        file?.let {
+            val imageData: ByteArray = it.bytes
+            contact.image = imageData
+        }
+
         val saveContact = contactRepository.save(contact)
         saveContact.password = encryptedPassword
 
